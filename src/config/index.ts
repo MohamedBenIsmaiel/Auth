@@ -1,7 +1,7 @@
-import * as dotenv from "dotenv";
-import path from "path";
+import * as dotenv from 'dotenv';
+import path from 'path';
 
-dotenv.config({path: path.join(__dirname, "../../.env")});
+dotenv.config({ path: path.join(__dirname, '../../.env') });
 
 export const serverPort = process.env.SERVER_PORT;
 export const dbHost = process.env.DB_HOST;
