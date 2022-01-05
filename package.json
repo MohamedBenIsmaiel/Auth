@@ -1,0 +1,20 @@
+{
+  "name": "Mohamed Ismaiel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MohamedBenIsmaiel/Auth.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MohamedBenIsmaiel/Auth/issues"
+  },
+  "homepage": "https://github.com/MohamedBenIsmaiel/Auth#readme"
+}
