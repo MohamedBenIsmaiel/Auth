@@ -1,4 +1,7 @@
+import { Document, Types } from 'mongoose';
+
 import { UserAddress, userEnums } from './entities';
+import UserModel from './repository/model/user.model';
 
 export interface IUser {
   id?: string;
@@ -20,3 +23,11 @@ export interface IAddress {
   city: string;
   street: string;
 }
+
+export interface IBuildUsersDb {
+  userModel: typeof UserModel;
+}
+
+export type TFindOne = Promise<
+  (Document<any, any, IUser> & IUser & { _id: Types.ObjectId }) | null
+>;
