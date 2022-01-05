@@ -1,4 +1,4 @@
-import buildUser from './user';
+import buildUser from './user.entity';
 import buildAddress from './user-address';
 import userEnums from './enums';
 
