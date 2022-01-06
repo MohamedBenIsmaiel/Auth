@@ -13,6 +13,7 @@ export interface IUser {
   mobileNumber: string;
   role: string;
   hobbies?: string[];
+  password: string;
 }
 
 export interface IBuildUser {

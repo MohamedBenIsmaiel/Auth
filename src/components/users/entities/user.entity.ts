@@ -7,10 +7,11 @@ export default function buildUser({ userEnums, UserAddress }: IBuildUser) {
     private id?: string;
     private name: string;
     private email: string;
-    private address: typeof UserAddress | {};
+    private address?: typeof UserAddress | {};
     private mobileNumber: string;
     private role: string;
     private hobbies?: string[];
+    private password: string;
 
     constructor(userPayload: IUser) {
       super();
@@ -22,6 +23,7 @@ export default function buildUser({ userEnums, UserAddress }: IBuildUser) {
       this.mobileNumber = userPayload.mobileNumber;
       this.role = userPayload.role;
       this.hobbies = userPayload.hobbies;
+      this.password  userPayload.password;
 
       this.validate();
     }
