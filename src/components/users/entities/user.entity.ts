@@ -23,7 +23,7 @@ export default function buildUser({ userEnums, UserAddress }: IBuildUser) {
       this.mobileNumber = userPayload.mobileNumber;
       this.role = userPayload.role;
       this.hobbies = userPayload.hobbies;
-      this.password  userPayload.password;
+      this.password = userPayload.password;
 
       this.validate();
     }
