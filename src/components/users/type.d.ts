@@ -1,7 +1,9 @@
 import { Document, Types } from 'mongoose';
 
 import { UserAddress, userEnums } from './entities';
+import UsersDb from './repository';
 import UserModel from './repository/model/user.model';
+import UserUsecase from './use-cases';
 
 export interface IUser {
   id?: string;
@@ -31,3 +33,14 @@ export interface IBuildUsersDb {
 export type TFindOne = Promise<
   (Document<any, any, IUser> & IUser & { _id: Types.ObjectId }) | null
 >;
+
+export interface IBuildListUsers {
+  UsersDb: typeof UsersDb;
+}
+
+export type TBuildListUsers = () => Promise<any>;
+export type TBuildGetMyProfile = ()=> Promise<any>;
+
+export interface IBuildUserController {
+  UserUsecase: typeof UserUsecase;
+}
