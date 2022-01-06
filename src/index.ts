@@ -2,7 +2,7 @@ import express, { Application, Request, Response } from 'express';
 
 import MongoDb from './infrastructure/mongodb-init';
 import { serverPort } from './config';
-import UserUsecase from './components/users/use-cases';
+import userRoutes from './components/users/routes';
 
 class App {
   private app: Application = express();
@@ -11,7 +11,7 @@ class App {
   constructor() {
     this.start();
     this.healthy();
-    this.dummy();
+    this.routes();
   }
 
   start(): void {
@@ -38,9 +38,8 @@ class App {
     });
   }
 
-  async dummy(): Promise<void>{
-    const result = await UserUsecase.listUsers();
-    console.log('>>>>>>>> result ', result);
+  routes(): void {
+    this.app.use('/user', userRoutes);
   }
 }
 
