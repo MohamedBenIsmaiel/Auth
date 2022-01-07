@@ -1,7 +1,10 @@
 import * as dotenv from 'dotenv';
 import path from 'path';
+import { ErrorCodes, ErrorException } from '../errors-handler';
 
-dotenv.config({ path: path.join(__dirname, '../../.env') });
+const config = dotenv.config({ path: path.join(__dirname, '../../.env') });
+if (config && config.error)
+  throw new ErrorException(".env file doesn't exist ", ErrorCodes.NotFound);
 
 export const serverPort = process.env.SERVER_PORT;
 export const dbHost = process.env.DB_HOST;
