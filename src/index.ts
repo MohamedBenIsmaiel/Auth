@@ -3,6 +3,7 @@ import express, { Application, Request, Response } from 'express';
 import MongoDb from './infrastructure/mongodb-init';
 import { serverPort } from './config';
 import userRoutes from './components/users/routes';
+import { errorHandler } from './middlewares/indext';
 
 class App {
   private app: Application = express();
@@ -10,13 +11,18 @@ class App {
 
   constructor() {
     this.start();
+    this.middlewares();
     this.healthy();
     this.routes();
+    this.errorHandler();
   }
 
   start(): void {
     this.listen();
     MongoDb.init();
+  }
+
+  middlewares(): void {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
   }
@@ -40,6 +46,10 @@ class App {
 
   routes(): void {
     this.app.use('/user', userRoutes);
+  }
+
+  errorHandler(): void {
+    this.app.use(errorHandler);
   }
 }
 
