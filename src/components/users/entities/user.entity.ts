@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { IUser, IBuildUser } from '../type';
 import Entity from '../../../core';
+import validateUser from './validator/validateUser';
+import { ErrorCodes, ErrorException } from '../../../errors-handler';
 
 export default function buildUser({ userEnums, UserAddress }: IBuildUser) {
   return class User extends Entity {
@@ -9,7 +11,7 @@ export default function buildUser({ userEnums, UserAddress }: IBuildUser) {
     private email: string;
     private address?: typeof UserAddress | {};
     private mobileNumber: string;
-    private role: string;
+    private role?: string;
     private hobbies?: string[];
     private password: string;
 
@@ -28,6 +30,19 @@ export default function buildUser({ userEnums, UserAddress }: IBuildUser) {
       this.validate();
     }
 
-    validate(){};
+    async validate() {
+      const obj = this.toJson();
+      delete obj.id;
+      validateUser(obj, userEnums.values()).catch((err) => {
+        if (err.details && err.details[0] && err.details[0].message) {
+          console.log(err.details[0].message);
+          throw new ErrorException(
+            err.details[0].message,
+            ErrorCodes.Validation
+          );
+        }
+        throw new ErrorException(err.message, ErrorCodes.UnknownError);
+      });
+    }
   };
 }
