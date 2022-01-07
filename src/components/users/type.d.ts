@@ -9,9 +9,9 @@ export interface IUser {
   id?: string;
   name: string;
   email: string;
-  address: IAddress;
+  address?: IAddress;
   mobileNumber: string;
-  role: string;
+  role?: string;
   hobbies?: string[];
   password: string;
 }
@@ -22,9 +22,9 @@ export interface IBuildUser {
 }
 
 export interface IAddress {
-  country: string;
-  city: string;
-  street: string;
+  country?: string;
+  city?: string;
+  street?: string;
 }
 
 export interface IBuildUsersDb {
