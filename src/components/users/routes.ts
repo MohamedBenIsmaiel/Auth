@@ -7,6 +7,6 @@ const router: Router = express.Router();
 
 router.get(userPath.listUsers, UserController.listUser);
 router.get(userPath.viewProfile, UserController.getMyprofile);
-router.post(userPath.register, UserController.register);
+router.post(userPath.register, asyncHandler(UserController.register));
 
 export default router;
