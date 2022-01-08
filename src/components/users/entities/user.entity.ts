@@ -2,9 +2,8 @@
 import { IUser, IBuildUser } from '../type';
 import Entity from '../../../core';
 import validateUser from './validator/validateUser';
-import { ErrorCodes, ErrorException } from '../../../errors-handler';
 
-export default function buildUser({ userEnums, UserAddress }: IBuildUser) {
+export default function buildUser({ UserAddress }: IBuildUser) {
   return class User extends Entity {
     private id?: string;
     private name: string;
@@ -26,23 +25,28 @@ export default function buildUser({ userEnums, UserAddress }: IBuildUser) {
       this.role = userPayload.role;
       this.hobbies = userPayload.hobbies;
       this.password = userPayload.password;
-
-      this.validate();
     }
 
-    async validate() {
+    async validate(): Promise<any> {
       const obj = this.toJson();
       delete obj.id;
-      validateUser(obj, userEnums.values()).catch((err) => {
-        if (err.details && err.details[0] && err.details[0].message) {
-          console.log(err.details[0].message);
-          throw new ErrorException(
-            err.details[0].message,
-            ErrorCodes.Validation
-          );
-        }
-        throw new ErrorException(err.message, ErrorCodes.UnknownError);
-      });
+      return validateUser(obj);
+    }
+
+    setPassword(password: string): void {
+      this.password = password;
+    }
+
+    getPassword(): string {
+      return this.password;
+    }
+
+    getEmail(): string {
+      return this.email;
+    }
+
+    getMobileNumber(): string {
+      return this.mobileNumber;
     }
   };
 }
