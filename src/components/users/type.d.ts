@@ -18,7 +18,6 @@ export interface IUser {
 
 export interface IBuildUser {
   UserAddress: typeof UserAddress;
-  userEnums: typeof userEnums;
 }
 
 export interface IAddress {
@@ -40,8 +39,13 @@ export interface IBuildListUsers {
 }
 
 export type TBuildListUsers = () => Promise<any>;
-export type TBuildGetMyProfile = ()=> Promise<any>;
+export type TBuildGetMyProfile = () => Promise<any>;
+export type TBuildRegister = (userData: IUser) => Promise<IUser>;
 
 export interface IBuildUserController {
   UserUsecase: typeof UserUsecase;
+}
+
+export interface IBuildRegister {
+  UsersDb: typeof UsersDb;
 }
