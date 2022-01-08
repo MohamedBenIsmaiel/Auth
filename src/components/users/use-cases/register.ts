@@ -7,7 +7,7 @@ import { Filter } from '../services';
 export default function buildRegister({
   UsersDb
 }: IBuildRegister): TBuildRegister {
-  return async function register(userData: IUser): Promise<IUser> {
+  return async function register(userData: IUser): Promise<any> {
     if (userData.role) delete userData.role; // only admin can set rules for users
 
     const user = new User(userData);
@@ -29,7 +29,12 @@ export default function buildRegister({
 
     const hashPassword = await Password.hash(user.getPassword());
     user.setPassword(hashPassword);
-    const registeredUser = await UsersDb.insertOne(user.toJson());
+
+    const registeredUserInfo = await UsersDb.insertOne(user.toJson());
+    const registeredUser = new User(registeredUserInfo).toJson({
+      deletePassword: true
+    }); // delete password;
+
     return registeredUser;
   };
 }
