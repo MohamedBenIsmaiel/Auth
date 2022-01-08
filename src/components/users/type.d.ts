@@ -1,6 +1,6 @@
 import { Document, Types } from 'mongoose';
 
-import { UserAddress, userEnums } from './entities';
+import { UserAddress } from './entities';
 import UsersDb from './repository';
 import UserModel from './repository/model/user.model';
 import UserUsecase from './use-cases';
