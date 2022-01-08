@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 
 import { IBuildUserController } from '../type';
 
@@ -16,11 +16,7 @@ export default function buildUserController({
       return res.json({ statusCode: 200, data: myProfile });
     }
 
-    static async register(
-      req: Request,
-      res: Response,
-      next: NextFunction
-    ): Promise<Response> {
+    static async register(req: Request, res: Response): Promise<Response> {
       const registeredUser = await UserUsecase.register(req.body);
       return res.json({ statusCode: 200, data: registeredUser });
     }
