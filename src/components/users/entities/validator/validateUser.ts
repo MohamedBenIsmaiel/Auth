@@ -1,35 +1,108 @@
 import Joi from 'joi';
 
-export default async function validateUser(
-  input: unknown,
-  userEnums: string[]
-) {
-  const schema = Joi.object({
-    name: Joi.string().alphanum().min(3).max(30).required(),
+import { invalidCharacters, allowedDomain } from '../../config';
+import { userEnums } from '..';
+import { ErrorCodes, ErrorException } from '../../../../errors-handler';
+
+export default async function validateUser(input: unknown) {
+  const schema = Joi.object().keys({
+    name: Joi.string()
+      .min(3)
+      .max(30)
+      .trim()
+      .custom((value, helper) => {
+        return invalidCharacters.test(value)
+          ? helper.error('any.invalid')
+          : value;
+      })
+      .required(),
 
     email: Joi.string()
       .email({
         minDomainSegments: 2,
-        tlds: { allow: ['com', 'net'] }
+        tlds: { allow: allowedDomain }
       })
-      .required(),
+      .trim()
+      .required()
+      .custom((value, helper) => {
+        return invalidCharacters.test(value)
+          ? helper.error('any.invalid')
+          : value;
+      }),
 
-    address: {
-      country: Joi.string().min(3).max(20),
-      city: Joi.string().min(3).max(20),
-      street: Joi.string().min(3).max(20)
-    },
+    address: Joi.object().keys({
+      country: Joi.string()
+        .min(3)
+        .max(20)
+        .trim()
+        .custom((value, helper) => {
+          return invalidCharacters.test(value)
+            ? helper.error('any.invalid')
+            : value;
+        })
+        .required(),
 
-    hobbies: Joi.array().items(Joi.string().min(3).max(20)),
+      city: Joi.string()
+        .min(3)
+        .max(20)
+        .trim()
+        .custom((value, helper) => {
+          return invalidCharacters.test(value)
+            ? helper.error('any.invalid')
+            : value;
+        }),
 
-    role: Joi.string().valid(...userEnums),
+      street: Joi.string()
+        .min(3)
+        .max(20)
+        .trim()
+        .custom((value, helper) => {
+          return invalidCharacters.test(value)
+            ? helper.error('any.invalid')
+            : value;
+        })
+    }),
 
-    mobileNumber: Joi.string().regex(/^(010)|(012)|(015)|(011).+[0-9]{11}$/),
+    hobbies: Joi.array().items(
+      Joi.string()
+        .min(3)
+        .max(20)
+        .trim()
+        .custom((value, helper) => {
+          return invalidCharacters.test(value)
+            ? helper.error('any.invalid')
+            : value;
+        })
+    ),
 
-    password: Joi.string().min(6).max(16).required()
-   // .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
-  //  repeat_password: Joi.ref('password')
+    role: Joi.string().valid(...userEnums.values()),
+
+    mobileNumber: Joi.string()
+      .regex(/^(?=\d{11}$)01[2501]\d{8}/)
+      .required()
+      .messages({
+        'string.base': `"mobileNumber" should be start with 010, 012, 011 or 015`,
+        'string.empty': `"mobileNumber" cannot be an empty field`,
+        'string.min': `"mobileNumber" should have a length of 11 numbers`,
+        'any.required': `"mobileNumber" is a required field`
+      }),
+
+    password: Joi.string()
+      .min(6)
+      .max(16)
+      .trim()
+      .required()
+      .custom((value, helper) => {
+        return invalidCharacters.test(value)
+          ? helper.error('any.invalid')
+          : value;
+      })
   });
 
-  return schema.validateAsync(input);
+  try {
+    await schema.validateAsync(input);
+  } catch (error: any) {
+    // customize Joi Error
+    throw new ErrorException(error.details[0].message, ErrorCodes.Validation);
+  }
 }

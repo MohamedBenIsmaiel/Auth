@@ -3,6 +3,6 @@ import buildAddress from './user-address';
 import userEnums from './enums';
 
 const UserAddress = buildAddress();
-const User = buildUser({ userEnums, UserAddress });
+const User = buildUser({ UserAddress });
 
 export { User, UserAddress, userEnums };
