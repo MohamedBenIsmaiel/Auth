@@ -1,14 +1,15 @@
 import { FilterQuery } from 'mongoose';
+import { User } from '../entities';
 
 import { IBuildUsersDb, IUser, TFindOne } from '../type';
 
 export default function buildUsersDb({ userModel }: IBuildUsersDb) {
   return class UsersDb {
-    async findOne(filter: FilterQuery<IUser>, projection: string[]): TFindOne {
-      if (!projection || (projection && !projection.length)) {
-        projection = ['-password'];
-      }
-      return userModel.findOne();
+    async findOne(
+      filter: FilterQuery<IUser> = {},
+      projection: string[] = ['-password']
+    ): TFindOne {
+      return userModel.findOne(filter, projection);
     }
 
     async find(
@@ -23,8 +24,14 @@ export default function buildUsersDb({ userModel }: IBuildUsersDb) {
       return userModel.find(filter, projection, options);
     }
 
-    async insert(data: any) {
+    async insertMany(data: typeof User[]): Promise<IUser[]> {
       return userModel.insertMany(data);
+    }
+
+    async insertOne(data: any): Promise<IUser> {
+      return userModel.insertMany([data]).then((result: any) => {
+        return result[0];
+      });
     }
   };
 }
