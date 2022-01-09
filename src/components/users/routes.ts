@@ -24,4 +24,6 @@ router.post(userPath.login, asyncHandler(UserController.login));
 
 router.get(userPath.refreshToken, asyncHandler(UserController.refreshToken));
 
+router.delete(userPath.logout, asyncHandler(UserController.logout));
+
 export default router;

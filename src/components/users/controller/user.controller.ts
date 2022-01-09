@@ -30,5 +30,10 @@ export default function buildUserController({
       const tokens = await UserUsecase.refreshToken(req.body);
       return res.json({ statusCode: 200, data: tokens });
     }
+
+    static async logout(req: Request, res: Response): Promise<Response> {
+      const logout = await UserUsecase.logout(req.body);
+      return res.json({ statusCode: 204, data: logout });
+    }
   };
 }
