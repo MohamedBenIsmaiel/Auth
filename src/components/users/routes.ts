@@ -22,4 +22,6 @@ router.post(userPath.register, asyncHandler(UserController.register));
 
 router.post(userPath.login, asyncHandler(UserController.login));
 
+router.get(userPath.refreshToken, asyncHandler(UserController.refreshToken));
+
 export default router;
