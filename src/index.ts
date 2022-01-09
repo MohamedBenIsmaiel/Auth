@@ -1,4 +1,5 @@
 import express, { Application, Request, Response } from 'express';
+import compression from 'compression';
 
 import { MongoDb } from './infrastructure';
 import { serverPort } from './config';
@@ -24,6 +25,7 @@ class App {
 
   middlewares(): void {
     this.app.use(express.json());
+    this.app.use(compression());
   }
 
   healthy(): void {
