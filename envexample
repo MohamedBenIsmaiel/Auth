@@ -1,5 +1,5 @@
 DB_HOST= 
-db_NAME= #database name
+DB_NAME= #database name
 DB_PORT=
 SERVER_PORT=
 DB_USERNAME=
