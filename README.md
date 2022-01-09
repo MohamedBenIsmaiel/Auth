@@ -30,6 +30,9 @@ this task can done in two way :
 i implement the second way - jwt and redis - every way has it's cons and props.
 
 ## my secnario implmentation 
+
+![design](https://github.com/MohamedBenIsmaiel/Auth/auth-design.png)
+
 first the user going to registeration endpoint to register after registeration success , then he going to login by using login endpoint and get refersh and access tokens at this time i loged the refersh token in the redis server and when he logout i delete it from redis , so redis like a black list to define the loged-in and loged-out users
 
 ## Installation
@@ -60,4 +63,6 @@ when the system go up you will get two users
 * reading more about the cons and props of session and jwt
 * know more about xsrf  and xss bugs
 
-## NOTE:- postman collection in the root dir 
+## NOTE:- 
+### postman collection in the root dir . 
+### entity, use-case , service and repository have it's owen README that contain more explaination
