@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import compression from 'compression';
 import * as helmet from 'helmet';
+import cors from 'cors';
 
 import { MongoDb } from './infrastructure';
 import { serverPort } from './config';
@@ -25,6 +26,7 @@ class App {
   }
 
   middlewares(): void {
+    this.app.use(cors()); // we can pass whilelist options here
     this.app.use(express.json());
     this.app.use(compression());
 
