@@ -59,3 +59,5 @@ when the system go up you will get two users
 # Things i Learned in this task
 * reading more about the cons and props of session and jwt
 * know more about xsrf  and xss bugs
+
+## NOTE:- postman collection in the root dir 
