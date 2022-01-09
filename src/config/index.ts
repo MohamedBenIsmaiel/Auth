@@ -17,3 +17,5 @@ export const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 export const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
 export const accessTokenExpire = process.env.ACCESS_TOKEN_EXPIRE;
 export const refreshTokenExpire = process.env.REFRESH_TOKEN_EXPIRE;
+export const redisHost = process.env.REDIS_HOST;
+export const redisPort = process.env.REDIS_PORT;
