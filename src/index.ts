@@ -7,6 +7,7 @@ import { MongoDb } from './infrastructure';
 import { serverPort } from './config';
 import userRoutes from './components/users/routes';
 import { errorHandler } from './middlewares/indext';
+import UserSeed from './seeder/user.seed';
 
 class App {
   private app: Application = express();
@@ -15,6 +16,7 @@ class App {
   constructor() {
     this.start();
     this.middlewares();
+    this.createDummyUsers();
     this.healthy();
     this.routes();
     this.errorHandler();
@@ -70,6 +72,10 @@ class App {
 
   errorHandler(): void {
     this.app.use(errorHandler);
+  }
+
+  createDummyUsers(): Promise<any> {
+    return UserSeed.creaeUsers().then((value) => console.log(value));
   }
 }
 
