@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { IUser, IBuildUser } from '../type';
 import Entity from '../../../core';
-import validateUser from './validator/validateUser';
+import validate from './validator/index';
 
 export default function buildUser({ UserAddress }: IBuildUser) {
   return class User extends Entity {
     private id?: string;
-    private name: string;
+    private name?: string;
     private email: string;
     private address?: typeof UserAddress | {};
-    private mobileNumber: string;
+    private mobileNumber?: string;
     private role?: string;
     private hobbies?: string[];
     private password: string;
@@ -27,10 +27,17 @@ export default function buildUser({ UserAddress }: IBuildUser) {
       this.password = userPayload.password;
     }
 
-    async validate(): Promise<any> {
+    async validateRegister(): Promise<any> {
       const obj = this.toJson();
       delete obj.id;
-      return validateUser(obj);
+      return validate.validateRegister(obj);
+    }
+
+    async validateLogin(): Promise<any> {
+      return validate.validateLogin({
+        email: this.email,
+        password: this.password
+      });
     }
 
     setPassword(password: string): void {
@@ -46,7 +53,15 @@ export default function buildUser({ UserAddress }: IBuildUser) {
     }
 
     getMobileNumber(): string {
-      return this.mobileNumber;
+      return this.mobileNumber as string;
+    }
+
+    getId(): string {
+      return this.id as string;
+    }
+
+    getRole(): string {
+      return this.role as string;
     }
   };
 }
