@@ -6,7 +6,7 @@ Authentication system  is a typescript task for creating Authentication operatio
 A task is written in typescript by using the popular  Express  framework , MongoDb database and Redis 
 
 # Task Architect
-I tried as much as possible to follow Domain Driven Design  philosophy to learn something new . the tasks consist of 
+I tried as much as possible to follow Domain Driven Design  philosophy by making centric the business of the system instead of centric the database, to learn something new . the tasks consist of 
 
 ```/src``` which include the source code of the task and this directory include 
 
@@ -51,3 +51,11 @@ when the system go up you will get two users
 * first user with email `fatura@fatura.com` and password `fatura12345` this user has a role `admin` and can access protected routes like list-users endpoints
 * second user with email `test@fatura.com` and password `test12345` this user has a role `user` , he will not able to access list-users endpoint , but can view his profile 
 
+# what i attended to do if i have a time
+* Make 2FA
+* Sending verifcation by mail or sms
+* Log the Device Id to notify the user if login from anthoer device
+
+# Things i Learned in this task
+* reading more about the cons and props of session and jwt
+* know more about xsrf  and xss bugs
