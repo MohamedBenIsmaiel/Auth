@@ -25,5 +25,10 @@ export default function buildUserController({
       const tokens = await UserUsecase.login(req.body);
       return res.json({ statusCode: 200, data: tokens });
     }
+
+    static async refreshToken(req: Request, res: Response): Promise<Response> {
+      const tokens = await UserUsecase.refreshToken(req.body);
+      return res.json({ statusCode: 200, data: tokens });
+    }
   };
 }
