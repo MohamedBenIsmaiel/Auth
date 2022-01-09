@@ -38,7 +38,7 @@ export interface IBuildListUsers {
   UsersDb: typeof UsersDb;
 }
 
-export type TBuildListUsers = () => Promise<any>;
+export type TBuildListUsers = (user: any) => Promise<IUser[]>;
 export type TBuildGetMyProfile = (user: any) => Promise<IUser>;
 export type TBuildRegister = (userData: IUser) => Promise<IUser>;
 
