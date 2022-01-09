@@ -1,5 +1,6 @@
 import { ErrorCodes, ErrorException } from '../../../errors-handler';
 import { Token } from '../services';
+import { logger } from '../../../middlewares/indext';
 
 export default function buildLogout({ redisClient }: any) {
   return async function logout({ refToken }: { refToken: string }) {
@@ -12,14 +13,14 @@ export default function buildLogout({ redisClient }: any) {
     const { userId }: any = await Token.verifyRefreshToken(refToken);
     redisClient.DEL(userId, (err: any, val: any) => {
       if (err) {
-        console.log(err.message);
+        logger.error(err.message);
         throw new ErrorException(
           ' Internal server Error ',
           ErrorCodes.Unauthenticated
         );
       }
 
-      console.log(val);
+      logger.error(val);
       return 'You have been logedout';
     });
   };

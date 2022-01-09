@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { redisClient } from '../../../infrastructure';
+import { logger } from '../../../middlewares/indext';
 
 import {
   accessTokenSecret,
@@ -21,7 +22,7 @@ export default class Token {
 
       jwt.sign(payload, accessTokenSecret as string, options, (err, token) => {
         if (err) {
-          console.log(err.message);
+          logger.error(err.message);
           reject(new ErrorException(err.message, ErrorCodes.UnknownError));
         }
         resolve(token as string);
@@ -38,7 +39,7 @@ export default class Token {
 
       jwt.sign(payload, refreshTokenSecret as string, options, (err, token) => {
         if (err) {
-          console.log(err.message);
+          logger.error(err.message);
           reject(new ErrorException(err.message, ErrorCodes.UnknownError));
         }
 
@@ -49,7 +50,7 @@ export default class Token {
           365 * 24 * 60 * 60,
           (err: any, reply: any) => {
             if (err) {
-              console.log(err.message);
+              logger.error(err.message);
               reject(new ErrorException(err.message, ErrorCodes.UnknownError));
               return;
             }

@@ -6,7 +6,7 @@ import cors from 'cors';
 import { MongoDb } from './infrastructure';
 import { serverPort } from './config';
 import userRoutes from './components/users/routes';
-import { errorHandler } from './middlewares/indext';
+import { errorHandler, logger } from './middlewares/indext';
 import UserSeed from './seeder/user.seed';
 
 class App {
@@ -62,7 +62,7 @@ class App {
 
   listen(): void {
     this.app.listen(this.port, (): void => {
-      console.log(`Connected successfully on port ${this.port}`);
+      logger.info(`Connected successfully on port ${this.port}`);
     });
   }
 
@@ -75,7 +75,7 @@ class App {
   }
 
   createDummyUsers(): Promise<any> {
-    return UserSeed.creaeUsers().then((value) => console.log(value));
+    return UserSeed.creaeUsers().then((value) => logger.info(value));
   }
 }
 

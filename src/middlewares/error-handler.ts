@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { ErrorCodes, ErrorException } from '../errors-handler';
+import { logger } from './indext';
 
 const errorHandler = function (
   err: Error,
@@ -8,8 +9,8 @@ const errorHandler = function (
   res: Response,
   next: NextFunction
 ) {
-  console.log('Path:', req.path);
-  console.error('Error occured:', err);
+  logger.info('Path:', req.path);
+  logger.error('Error occured:', err);
 
   res.setHeader('Content-type', 'application/json');
   if (err instanceof ErrorException) {

@@ -7,26 +7,27 @@ import {
   dbPassword,
   dbAuthSource
 } from '../config';
+import { logger } from '../middlewares/indext';
 
 export default class MongoDb {
   static uri = `mongodb://${dbUsername}:${dbPassword}@${dbHost}:${dbPort}/${dbName}?authsource=${dbAuthSource}`;
 
   static init() {
     mongoose.connect(MongoDb.uri).catch((e) => {
-      console.log('[*] Database Error  ', e);
+      logger.error('[*] Database Error  ', e);
       process.exit(1);
     });
 
     mongoose.connection.on('connected', () => {
-      console.log('Mongoose connected to db');
+      logger.info('Mongoose connected to db');
     });
 
     mongoose.connection.on('error', (err) => {
-      console.log(err.message);
+      logger.error(err.message);
     });
 
     mongoose.connection.on('disconnected', () => {
-      console.log('Mongoose connection is disconnected.');
+      logger.error('Mongoose connection is disconnected.');
     });
 
     process.on('SIGINT', async () => {

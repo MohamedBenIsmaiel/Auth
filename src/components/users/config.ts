@@ -4,7 +4,7 @@ export const userPath = {
   register: '/register',
   login: '/login',
   refreshToken: '/refresh-token',
-  logout: '/logout',
+  logout: '/logout'
 };
 
 export const saltRounds = 10; // used to generate salt for hashing password

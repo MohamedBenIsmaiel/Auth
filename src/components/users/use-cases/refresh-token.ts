@@ -13,7 +13,6 @@ export default function buildRefreshToken(): ({
       );
 
     const { userId, role }: any = await Token.verifyRefreshToken(refToken);
-    console.log('verify refresh token');
     const accessToken = await Token.signeAccessToken({ userId, role });
     const refreshToken = await Token.signeRefreshToken({ userId, role });
     return { accessToken, refreshToken };
