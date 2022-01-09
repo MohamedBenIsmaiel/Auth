@@ -9,12 +9,6 @@ import {
 } from '../config';
 
 export default class MongoDb {
-  static dbName = dbName;
-  static dbPort = dbPort;
-  static dbHost = dbHost;
-  static dbUsername = dbUsername;
-  static dbPassword = dbPassword;
-  static dbAutSource = dbAuthSource;
   static uri = `mongodb://${dbUsername}:${dbPassword}@${dbHost}:${dbPort}/${dbName}?authsource=${dbAuthSource}`;
 
   static init() {
