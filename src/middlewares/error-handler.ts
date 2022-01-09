@@ -13,14 +13,14 @@ const errorHandler = function (
 
   res.setHeader('Content-type', 'application/json');
   if (err instanceof ErrorException) {
-    res.json({
+    res.status(err.statusCode).send({
       message: err.message,
       statusCode: err.statusCode,
       code: err.code
     });
   } else {
     // For unhandled errors.
-    res.json({
+    res.status(500).send({
       code: ErrorCodes.UnknownError,
       statusCode: 500,
       message: err.message
