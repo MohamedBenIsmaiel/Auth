@@ -21,6 +21,9 @@ export default class ErrorException extends Error {
       case ErrorCodes.Validation:
         this.statusCode = 422;
         break;
+      case ErrorCodes.Permission:
+        this.statusCode = 403;
+        break;
       default:
         this.statusCode = 500;
         break;
