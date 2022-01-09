@@ -31,7 +31,7 @@ i implement the second way - jwt and redis - every way has it's cons and props.
 
 ## my secnario implmentation 
 
-![design](./auth-design.png)
+<img src="./auth-design.png" alt="auth-deisgn" />
 
 first the user going to registeration endpoint to register after registeration success , then he going to login by using login endpoint and get refersh and access tokens at this time i loged the refersh token in the redis server and when he logout i delete it from redis , so redis like a black list to define the loged-in and loged-out users
 
