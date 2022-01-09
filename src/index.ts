@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from 'express';
 
-import MongoDb from './infrastructure/mongodb-init';
+import { MongoDb } from './infrastructure';
 import { serverPort } from './config';
 import userRoutes from './components/users/routes';
 import { errorHandler } from './middlewares/indext';
