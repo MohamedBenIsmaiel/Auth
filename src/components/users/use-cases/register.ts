@@ -12,7 +12,7 @@ export default function buildRegister({
 
     const user = new User(userData);
 
-    await user.validate(); // if there is a validation error will throw error
+    await user.validateRegister(); // if there is a validation error will throw error
 
     // find by email or mobile number
     const getUser: any = await UsersDb.findOne(
