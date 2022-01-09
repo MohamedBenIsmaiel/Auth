@@ -7,10 +7,10 @@ import UserUsecase from './use-cases';
 
 export interface IUser {
   id?: string;
-  name: string;
+  name?: string;
   email: string;
   address?: IAddress;
-  mobileNumber: string;
+  mobileNumber?: string;
   role?: string;
   hobbies?: string[];
   password: string;
@@ -39,7 +39,7 @@ export interface IBuildListUsers {
 }
 
 export type TBuildListUsers = () => Promise<any>;
-export type TBuildGetMyProfile = () => Promise<any>;
+export type TBuildGetMyProfile = (user: any) => Promise<IUser>;
 export type TBuildRegister = (userData: IUser) => Promise<IUser>;
 
 export interface IBuildUserController {
@@ -49,3 +49,10 @@ export interface IBuildUserController {
 export interface IBuildRegister {
   UsersDb: typeof UsersDb;
 }
+
+export interface ILogin {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export type TBuildLogin = (userData: any) => Promise<ILogin>;
