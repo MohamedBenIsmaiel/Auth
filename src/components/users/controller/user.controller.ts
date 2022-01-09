@@ -6,8 +6,8 @@ export default function buildUserController({
   UserUsecase
 }: IBuildUserController) {
   return class UserController {
-    static async listUser(req: Request, res: Response): Promise<Response> {
-      const users = await UserUsecase.listUsers();
+    static async listUser(req: any, res: Response): Promise<Response> {
+      const users = await UserUsecase.listUsers(req.user);
       return res.json({ statusCode: 200, data: users });
     }
 
