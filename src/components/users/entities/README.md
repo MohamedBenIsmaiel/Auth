@@ -1,4 +1,4 @@
-# Entity Director
+# Entity Directory
 
 Entity directory contain the base of the business for our task.
 

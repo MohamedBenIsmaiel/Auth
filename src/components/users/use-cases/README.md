@@ -1,4 +1,4 @@
-# Use-case Director
+# Use-case Directory
 
 use-case is the second base of our domain , it contains the use-cases for our app , use-case is the action that user can do , so user can register , login or view his informationi
 
