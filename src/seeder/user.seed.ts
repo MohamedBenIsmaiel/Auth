@@ -18,6 +18,11 @@ export default class UserSeed {
   ];
 
   static async creaeUsers(): Promise<any> {
-    return UsersDb.insertMany(UserSeed.data);
+    const found = await UsersDb.find({
+      email: [UserSeed.data[0].email, UserSeed.data[1].email]
+    });
+    if (!found || Boolean(found.length) == false) {
+      return UsersDb.insertMany(UserSeed.data);
+    }
   }
 }
