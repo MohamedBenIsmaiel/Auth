@@ -30,15 +30,10 @@ export default function buildLogin({ UsersDb }: IBuildRegister): TBuildLogin {
       );
 
     user = new User(getUser);
-    const accessToken = await Token.signeAccessToken({
-      userId: user.getId(),
-      role: user.getRole
-    });
+    const payload = { userId: user.getId(), role: user.getRole() };
+    const accessToken = await Token.signeAccessToken(payload);
 
-    const refreshToken = await Token.signeRefreshToken({
-      userId: user.getId(),
-      role: user.getRole()
-    });
+    const refreshToken = await Token.signeRefreshToken(payload);
 
     return { accessToken, refreshToken };
   };
