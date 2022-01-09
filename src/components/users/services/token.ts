@@ -72,23 +72,13 @@ export default class Token {
             );
 
           const { userId, role }: any = payload;
-          // resolve({ userId, role });
-          /*
-        redisClient.GET(userId, (err: any, result: any) => {
-
-          if (refreshToken === result) return resolve({ userId, role });
-          reject(
-            new ErrorException('Unauthorized', ErrorCodes.Unauthenticated)
-          );
-        });
-        */
           const result = await redisClient.GET(userId);
           if (!result) {
-            throw new ErrorException(
-              'un-utheriazed ',
-              ErrorCodes.Unauthenticated
+            reject(
+              new ErrorException('unauthorizedzed ', ErrorCodes.Unauthenticated)
             );
           }
+
           resolve({ userId, role });
         }
       );
